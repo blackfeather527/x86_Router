@@ -163,19 +163,7 @@ jobs:
         [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})" >> release.txt
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
         echo "::set-output name=status::success"
-
-
-    - name: Upload to Qiniu
-      uses: luochongfei/up2qn@master
-      if: steps.tag.outputs.status == 'success' && !cancelled()
-      with:
-        bucket: space-381
-        zone: 华南
-        access_key: ${{ secrets.AK }}
-        secret_key: ${{ secrets.SK }}
-        local_dir: openwrt/bin
-        target_dir: /
-        
+ 
     - name: Upload firmware to release
       uses: softprops/action-gh-release@v1
       if: steps.tag.outputs.status == 'success' && !cancelled()
